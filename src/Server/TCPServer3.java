@@ -3,6 +3,7 @@ package Server;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class TCPServer3 {
@@ -11,22 +12,26 @@ public class TCPServer3 {
     static TreeSet<String> users = new TreeSet<>();
 
     public static void main(String[] args) {
-        users.add("Marius");
+       // users.add("Marius");
 
         try (ServerSocket server = new ServerSocket(22333)) {
             while (true) {
                 System.out.println("ready to connect");
 
-
                 Socket client = server.accept();
 
-                if (clientHandlers.size() < 3) {
+
+                if (clientHandlers.size() < 2) {
+
                     clientHandlers.add(new ClientHandler(client));
                     clientHandlers.get(clientHandlers.size() - 1).start();
+                } else {
+                    client.getOutputStream().write("Spiel voll\r\n\r\n".getBytes(StandardCharsets.UTF_8));
+                    client.close();
                 }
 
 
-                System.out.println(users);
+
                 System.out.println(clientHandlers.size());
 
             }

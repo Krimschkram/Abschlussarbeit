@@ -9,6 +9,7 @@ public class ClientHandler extends Thread {
     BufferedReader br;
     BufferedWriter wr;
     String uname;
+    boolean turn = false;
 
     public ClientHandler(Socket s) throws IOException {
         client = s;
