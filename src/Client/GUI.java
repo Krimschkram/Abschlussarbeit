@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -18,6 +17,7 @@ public class GUI extends Application {
     public int stageSize = 1000;
     public int sceneSize = sceneSize = (stageSize / 4) * 3;
     public int groesseperbutton = sceneSize / 7;
+    ArrayList<NeuerButton> topButtons = new ArrayList<>();
 
 
     public static void main(String[] args) {
@@ -40,7 +40,7 @@ public class GUI extends Application {
 
         // Ansteuerbare Buttons mittels ArrayList
 
-        ArrayList<NeuerButton> topButtons = new ArrayList<>();
+
 
         for (int i = 0; i <= 7; i++) {
             topButtons.add(new NeuerButton(0,i,true,true));

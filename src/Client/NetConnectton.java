@@ -18,6 +18,8 @@ public class NetConnectton extends Thread {
         start();
     }
 
+    // test3
+
     @Override
     public void run() {
         try {
