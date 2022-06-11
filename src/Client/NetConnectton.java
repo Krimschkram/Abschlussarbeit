@@ -9,6 +9,7 @@ public class NetConnectton extends Thread {
     BufferedWriter wr;
     Socket socket;
 
+
     public NetConnectton(GUI gui, String IP, int Port) throws IOException {
         this.gui = gui;
         socket = new Socket(IP, Port);
@@ -25,13 +26,26 @@ public class NetConnectton extends Thread {
         try {
             while (true) {
                 String line = br.readLine();
-                /*
-                if (line.equals("kjhgfd"))
-                    gui.startGame(:)
-                System.out.println("br.readLine() = " + line);
 
-                 */
+
+                    gui.Ausgabe(line);
+
+
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void buttonPressed(int index) throws IOException {
+        wr.write(index);
+
+    }
+
+    public void write(String line) {
+        try {
+            wr.write(line + "\r\n");
+            wr.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -12,10 +12,12 @@ public class TCPServer3 {
     static TreeSet<String> users = new TreeSet<>();
 
     public static void main(String[] args) {
-       // users.add("Marius");
+        // users.add("Marius");
 
         try (ServerSocket server = new ServerSocket(22333)) {
             while (true) {
+
+
                 System.out.println("ready to connect");
 
                 Socket client = server.accept();
@@ -30,9 +32,8 @@ public class TCPServer3 {
                     client.close();
                 }
 
-
-
                 System.out.println(clientHandlers.size());
+
 
             }
         } catch (IOException io) {

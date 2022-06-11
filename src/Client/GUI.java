@@ -1,5 +1,6 @@
 package Client;
 
+import Server.TCPServer3;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -19,6 +20,8 @@ public class GUI extends Application {
     public int sceneSizeX = stageSizeX;
     public int sceneSizeY = (stageSizeY * 3) / 4;
     public int groesseperbutton = sceneSizeY / 7;
+
+    boolean[] buttonPressed = new boolean[7];
 
 
     public static void main(String[] args) {
@@ -94,6 +97,44 @@ public class GUI extends Application {
             }
         });
 
+        topButtons.get(0).setOnAction(f -> {
+            netCon.write("click 0");
+        });
+        topButtons.get(1).setOnAction(f -> {
+            netCon.write("click 1");
+        });
+        topButtons.get(2).setOnAction(f -> {
+            netCon.write("click 2");
+        });
+        topButtons.get(3).setOnAction(f -> {
+            netCon.write("click 3");
+        });
+        topButtons.get(4).setOnAction(f -> {
+            netCon.write("click 4");
+        });
+        topButtons.get(5).setOnAction(f -> {
+            netCon.write("click 5");
+        });
+        topButtons.get(6).setOnAction(f -> {
+            netCon.write("click 6");
+        });
+/*
+        for (int i = 0; i < 7; i++) {
+            topButtons.get(i).setOnAction(f -> {
+                netCon.write("123");
+            });
+        }
+
+ */
     }
+    public void Ausgabe(String s) {
+        System.out.println(s);
+    }
+
+    public static void updateSpielfeld(String neuesSpielfeld) {
+
+    }
+
+    //public void spielfeldAuslesen()
 
 }
