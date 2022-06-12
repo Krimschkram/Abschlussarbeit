@@ -147,13 +147,53 @@ public class GUI extends Application {
         borderPane.setCenter(Spielfeld);
     }
 
-    public boolean hatGewonnen(String Spielfeld) {
-        //prüft ob vier gleiche Nebeneinander/Diagonal sind
-    }
+
 
     */
 
 
 
 
+    public boolean hatGewonnen(String Spielfeld) {
+        //prüft ob vier gleiche Nebeneinander/Diagonal sind
+        if (hatGewonnenZeile(Spielfeld) || hatGewonnenSpalte(Spielfeld)) {
+            netCon.write("ende");
+            return true;
+        }
+        return false;
+    }
+
+    public boolean hatGewonnenZeile(String Spielfeld) {
+        //prüft ob vier gleiche Nebeneinander/Diagonal sind
+
+        for (int i = 0, j = 0; i < Spielfeld.length(); i++) {
+            if (Spielfeld.charAt(i) == ';' || Spielfeld.charAt(i) == '0') {
+                j = 0;
+                continue;
+            }
+            j++;
+            if (j == 4) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean hatGewonnenSpalte(String Spielfeld) {
+        for (int i = 0; i < 7; i++) {
+            for (int j = i, k = 0; j < Spielfeld.length(); j+=8) {
+
+                if (Spielfeld.charAt(j) == ';' || Spielfeld.charAt(j) == '0') {
+                    k = 0;
+                    continue;
+                }
+                k++;
+                if (k == 4) {
+                    return true;
+                }
+
+            }
+        }
+        return false;
+    }
 }
