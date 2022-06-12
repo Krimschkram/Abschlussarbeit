@@ -1,5 +1,7 @@
 package Server;
 
+import Client.Spielfeld;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -40,6 +42,9 @@ public class TCPServer3 {
             io.printStackTrace();
         }
     }
+
+
+
 
 
     /*

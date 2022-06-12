@@ -33,15 +33,27 @@ public class ClientHandler extends Thread {
                     int col = Integer.parseInt(line.split(" ")[1]);
                     int place = nextBest(col);
                     spielfeld = aendereSpielfeld(col);
-                    write(spielfeld);
-                }
-                write("123");
 
+                    for (int i = 0; i < TCPServer3.clientHandlers.size(); i++) {
+                        TCPServer3.clientHandlers.get(i).write(spielfeld);
+                    }
+
+                }
+                if (line.equals("ende")) {
+                    reset();
+                    for (int i = 0; i < TCPServer3.clientHandlers.size(); i++) {
+                        TCPServer3.clientHandlers.get(i).write(spielfeld);
+                    }
+                }
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void reset() {
+        spielfeld =  "0000000;0000000;0000000;0000000;0000000;0000000";
     }
 
     public void write(String line) {
@@ -95,6 +107,4 @@ public class ClientHandler extends Thread {
         }
         return newSpielfeld;
     }
-
-
 }

@@ -1,5 +1,7 @@
 package Client;
 
+import Server.TCPServer3;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -26,7 +28,7 @@ public class NetConnectton extends Thread {
         try {
             while (true) {
                 String line = br.readLine();
-                    gui.Ausgabe(line);
+                    gui.spielfeldAuslesen(line);
             }
         } catch (IOException e) {
             e.printStackTrace();

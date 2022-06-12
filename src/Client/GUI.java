@@ -152,12 +152,16 @@ public class GUI extends Application {
     */
 
 
-
+    public void spielfeldAuslesen(String Spielfeld) {
+        System.out.println(Spielfeld);
+        if (hatGewonnen(Spielfeld)) {
+            netCon.write("ende");   // Schlussanimation
+        }
+    }
 
     public boolean hatGewonnen(String Spielfeld) {
         //prüft ob vier gleiche Nebeneinander/Diagonal sind
         if (hatGewonnenZeile(Spielfeld) || hatGewonnenSpalte(Spielfeld)) {
-            netCon.write("ende");
             return true;
         }
         return false;
