@@ -131,10 +131,29 @@ public class GUI extends Application {
         System.out.println(s);
     }
 
-    public static void updateSpielfeld(String neuesSpielfeld) {
+   /*
 
+    public void spielfeldAuslesen(String Spielfeld) {
+        neues Gridpane anhand vom String kodierten Spielfeld erstellen
+
+        updateSpielfeld(neu erstelltes Gridpane)
+
+        if (hatGewonnen(String Spielfeld == true) {
+            NetCon.write("Ende");
+        }
     }
 
-    //public void spielfeldAuslesen()
+    public void updateSpielfeld (GridPane Spielfeld) {
+        borderPane.setCenter(Spielfeld);
+    }
+
+    public boolean hatGewonnen(String Spielfeld) {
+        //prüft ob vier gleiche Nebeneinander/Diagonal sind
+    }
+
+    */
+
+
+
 
 }

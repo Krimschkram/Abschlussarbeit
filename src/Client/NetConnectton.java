@@ -26,11 +26,7 @@ public class NetConnectton extends Thread {
         try {
             while (true) {
                 String line = br.readLine();
-
-
                     gui.Ausgabe(line);
-
-
             }
         } catch (IOException e) {
             e.printStackTrace();
