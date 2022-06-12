@@ -20,9 +20,12 @@ public class GUI extends Application {
     public int sceneSizeX = stageSizeX;
     public int sceneSizeY = (stageSizeY * 3) / 4;
     public int groesseperbutton = sceneSizeY / 7;
+    public static ArrayList<NeuerButton> spielfeld = new ArrayList<>();
+    public static ArrayList<NeuerButton> topButtons = new ArrayList<>();
+    public BorderPane borderPane = new BorderPane();
+    public static HBox h2 = new HBox();
 
     boolean[] buttonPressed = new boolean[7];
-
 
     public static void main(String[] args) {
         Application.launch(GUI.class, args);
@@ -35,7 +38,6 @@ public class GUI extends Application {
         stage.setMinWidth(stageSizeX);
         stage.setMinHeight(stageSizeY);
 
-        BorderPane borderPane = new BorderPane();
         Scene scene = new Scene(borderPane, sceneSizeX, sceneSizeY); // breite, höhe
 
         TextField ip = new TextField();
@@ -44,18 +46,14 @@ public class GUI extends Application {
 
         // Ansteuerbare Buttons mittels ArrayList
 
-        ArrayList<NeuerButton> topButtons = new ArrayList<>();
-
         for (int i = 0; i < 7; i++) {
             topButtons.add(new NeuerButton(0,i,true,true));
             topButtons.get(i).setPrefSize(groesseperbutton-10, groesseperbutton-10);
             System.out.println("Top Button Number: " + i + ", Row: " + topButtons.get(i).row + ",  Col: " + topButtons.get(i).col);
-
         }
 
         VBox v = new VBox();
         HBox h1 = new HBox();
-        HBox h2 = new HBox();
         HBox h3 = new HBox();
         Pane spacer = new Pane();               // ist zum Zentrieren der Elemente in h1 da
         Pane spacer2 = new Pane();              // ist zum Zentrieren der Elemente in h1 da
@@ -66,7 +64,6 @@ public class GUI extends Application {
 
         // Spielfeld Buttons mittels Arraylist
 
-        ArrayList<NeuerButton> spielfeld = new ArrayList<>();
 
         for (int i = 0; i < 42; i++) {
             spielfeld.add(new NeuerButton((i)/7,(i)%7,false,false));
@@ -131,15 +128,25 @@ public class GUI extends Application {
         System.out.println(s);
     }
 
-   /*
 
-    public void spielfeldAuslesen(String Spielfeld) {
-        neues Gridpane anhand vom String kodierten Spielfeld erstellen
 
-        updateSpielfeld(neu erstelltes Gridpane)
+    public void spielfeldAuslesen(String SpielfeldString) {
 
-        if (hatGewonnen(String Spielfeld == true) {
-            NetCon.write("Ende");
+        GridPane neuesGridPane = new GridPane();
+
+        SpielfeldString.replaceAll(";","");
+
+        for (int i = 0; i < SpielfeldString.length(); i++) {
+
+            spielfeld.get(i).farbe = Integer.parseInt(SpielfeldString.charAt(i) + "");
+            einfaerben(spielfeld.get(i));
+            neuesGridPane.add(spielfeld.get(i),spielfeld.get(i).col,spielfeld.get(i).row);
+        }
+
+        updateSpielfeld(neuesGridPane);
+
+        if (hatGewonnen(SpielfeldString) == true) {
+            netCon.write("Ende");
         }
     }
 
@@ -147,16 +154,46 @@ public class GUI extends Application {
         borderPane.setCenter(Spielfeld);
     }
 
-
-
-    */
-
-
+    /*
     public void spielfeldAuslesen(String Spielfeld) {
         System.out.println(Spielfeld);
         if (hatGewonnen(Spielfeld)) {
             netCon.write("ende");   // Schlussanimation
         }
+    }
+
+     */
+
+    public static void einfaerben(NeuerButton button){
+        if (button.farbe != 1 && button.farbe != 2){
+            return;
+        }
+
+        if (button.farbe == 1){
+            button.setStyle("-fx-background-color : red");
+        }
+
+        if (button.farbe == 2){
+            button.setStyle("-fx-background-color : blue");
+        }
+    }
+
+    public static void disableTopButtons(){
+        for (int i = 0; i < topButtons.size(); i++) {
+            topButtons.get(i).setDisable(true);
+        }
+        updateTopButtons();
+    }
+
+    public static void enableTopButtons(){
+        for (int i = 0; i < topButtons.size(); i++) {
+            topButtons.get(i).setDisable(false);
+        }
+        updateTopButtons();
+    }
+
+    public static void updateTopButtons(){
+        h2.getChildren().addAll(topButtons);
     }
 
     public boolean hatGewonnen(String Spielfeld) {
