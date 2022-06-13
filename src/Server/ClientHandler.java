@@ -93,13 +93,13 @@ public class ClientHandler extends Thread {
 
                 if (j != col) {
                     if (ar[i].charAt(j) != '0') {
-                        newSpielfeld += "X";
+                        newSpielfeld += "1";
                         continue;
                     }
                     newSpielfeld += "0";
                     continue;
                 }
-                newSpielfeld += "X";
+                newSpielfeld += "1";
             }
             if (row != 5) {
                 newSpielfeld += ";";

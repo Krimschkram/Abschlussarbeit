@@ -145,7 +145,7 @@ public class GUI extends Application {
 
         updateSpielfeld(neuesGridPane);
 
-        if (hatGewonnen(SpielfeldString) == true) {
+        if (hatGewonnen(SpielfeldString) == 1 || hatGewonnen(SpielfeldString) == 2) {
             netCon.write("Ende");
         }
     }
@@ -196,45 +196,86 @@ public class GUI extends Application {
         h2.getChildren().addAll(topButtons);
     }
 
-    public boolean hatGewonnen(String Spielfeld) {
-        //prüft ob vier gleiche Nebeneinander/Diagonal sind
-        if (hatGewonnenZeile(Spielfeld) || hatGewonnenSpalte(Spielfeld)) {
-            return true;
+    public int hatGewonnen(String Spielfeld) {
+
+        if (hatGewonnenZeile(Spielfeld) == 1 || hatGewonnenSpalte(Spielfeld) == 1 || hatGewonnenDiagonal(Spielfeld) == 1){
+            return 1;
         }
-        return false;
+        if (hatGewonnenZeile(Spielfeld) == 2 || hatGewonnenSpalte(Spielfeld) == 2 || hatGewonnenDiagonal(Spielfeld) == 2){
+            return 2;
+        }
+        else{
+            return 0;
+        }
     }
 
-    public boolean hatGewonnenZeile(String Spielfeld) {
-        //prüft ob vier gleiche Nebeneinander/Diagonal sind
+    public int hatGewonnenZeile(String Spielfeld) {
 
-        for (int i = 0, j = 0; i < Spielfeld.length(); i++) {
+        for (int i = 0, j = 0, k = 0; i < Spielfeld.length(); i++){
             if (Spielfeld.charAt(i) == ';' || Spielfeld.charAt(i) == '0') {
-                j = 0;
+                j = 0; // rot
+                k = 0; // blau
                 continue;
             }
-            j++;
-            if (j == 4) {
-                return true;
+
+            if (Spielfeld.charAt(i) == 1) {
+                k = 0;
+                j++;
+                if (j == 4) {
+                    return 1; // rot gewinnt
+                }
+                continue;
+            }
+
+            if (Spielfeld.charAt(i) == 2){
+                j = 0;
+                k++;
+                if (k == 4){
+                    return 2; // blau gewinnt
+                }
+                continue;
             }
         }
-        return false;
+        return 0;
     }
 
-    public boolean hatGewonnenSpalte(String Spielfeld) {
+    public int hatGewonnenSpalte(String Spielfeld) {
         for (int i = 0; i < 7; i++) {
-            for (int j = i, k = 0; j < Spielfeld.length(); j+=8) {
+            for (int l = i, k = 0, j = 0; l < Spielfeld.length(); l+=8) {
 
-                if (Spielfeld.charAt(j) == ';' || Spielfeld.charAt(j) == '0') {
-                    k = 0;
+                if (Spielfeld.charAt(l) == ';' || Spielfeld.charAt(l) == '0') {
+                    j = 0; // rot
+                    k = 0; // blau
                     continue;
                 }
-                k++;
-                if (k == 4) {
-                    return true;
+
+                if (Spielfeld.charAt(l) == 1){
+                    k = 0;
+                    j++;
+                    if (j == 4){
+                        return 1; // rot gewinnt
+                    }
+                    continue;
+                }
+
+                if (Spielfeld.charAt(l) == 2){
+                    j = 0;
+                    k++;
+                    if (k == 4){
+                        return 2; // blau gewinnt
+                    }
+                    continue;
                 }
 
             }
         }
-        return false;
+        return 0;
     }
+
+    public int hatGewonnenDiagonal(String Spielfeld){
+
+
+        return 0;
+    }
+
 }
