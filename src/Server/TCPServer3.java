@@ -25,10 +25,15 @@ public class TCPServer3 {
                 Socket client = server.accept();
 
 
+
+
                 if (clientHandlers.size() < 2) {
 
-                    clientHandlers.add(new ClientHandler(client));
+                    clientHandlers.add(new ClientHandler(client, clientHandlers.size()));
+                    System.out.println(clientHandlers.get(0).index);
                     clientHandlers.get(clientHandlers.size() - 1).start();
+                    // clientHandlers.get(clientHandlers.size() - 1).write("disable");
+
                 } else {
                     client.getOutputStream().write("Spiel voll\r\n\r\n".getBytes(StandardCharsets.UTF_8));
                     client.close();
@@ -36,16 +41,24 @@ public class TCPServer3 {
 
                 System.out.println(clientHandlers.size());
 
+                if (clientHandlers.size() == 2) {
+                    // start game
+                }
+
 
             }
         } catch (IOException io) {
             io.printStackTrace();
         }
+
+
     }
 
 
 
-
+    public static void ausgabe(String s) {
+        System.out.println(s);
+    }
 
     /*
     public static void close(String user) throws IOException {

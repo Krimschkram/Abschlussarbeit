@@ -131,7 +131,7 @@ public class GUI extends Application {
 
 
     public void spielfeldAuslesen(String SpielfeldString) {
-
+        System.out.println(SpielfeldString);
         GridPane neuesGridPane = new GridPane();
 
         SpielfeldString.replaceAll(";","");
@@ -143,7 +143,7 @@ public class GUI extends Application {
             neuesGridPane.add(spielfeld.get(i),spielfeld.get(i).col,spielfeld.get(i).row);
         }
 
-        updateSpielfeld(neuesGridPane);
+       updateSpielfeld(neuesGridPane);
 
         if (hatGewonnen(SpielfeldString) == 1 || hatGewonnen(SpielfeldString) == 2) {
             netCon.write("Ende");

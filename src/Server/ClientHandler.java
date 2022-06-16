@@ -14,9 +14,11 @@ public class ClientHandler extends Thread {
     String uname;
     boolean turn = false;
     static String spielfeld = "0000000;0000000;0000000;0000000;0000000;0000000";
+    public int index;
 
-    public ClientHandler(Socket s) throws IOException {
+    public ClientHandler(Socket s, int index) throws IOException {
         client = s;
+        this.index = index;
         br = new BufferedReader(new InputStreamReader(client.getInputStream()));
         wr = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
     }
@@ -33,6 +35,7 @@ public class ClientHandler extends Thread {
                     int col = Integer.parseInt(line.split(" ")[1]);
                     int place = nextBest(col);
                     spielfeld = aendereSpielfeld(col);
+                    TCPServer3.ausgabe(spielfeld);
 
                     for (int i = 0; i < TCPServer3.clientHandlers.size(); i++) {
                         TCPServer3.clientHandlers.get(i).write(spielfeld);
@@ -93,13 +96,18 @@ public class ClientHandler extends Thread {
 
                 if (j != col) {
                     if (ar[i].charAt(j) != '0') {
-                        newSpielfeld += "1";
+                        newSpielfeld += ar[i].charAt(j);
                         continue;
                     }
                     newSpielfeld += "0";
                     continue;
                 }
-                newSpielfeld += "1";
+                if (index == 0) {
+                    newSpielfeld += "R";
+                } else {
+                    newSpielfeld += "B";
+                }
+
             }
             if (row != 5) {
                 newSpielfeld += ";";
