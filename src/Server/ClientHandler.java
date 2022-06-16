@@ -39,7 +39,7 @@ public class ClientHandler extends Thread {
                     }
 
                 }
-                if (line.equals("ende")) {
+                if (line.equals("Ende")) {
                     reset();
                     for (int i = 0; i < TCPServer3.clientHandlers.size(); i++) {
                         TCPServer3.clientHandlers.get(i).write(spielfeld);
