@@ -144,7 +144,7 @@ public class GUI extends Application {
         });
 
 
-        if (hatGewonnen(SpielfeldString) == 'R') {
+        if (hatGewonnen(SpielfeldString) != '0') {
 
             netCon.write("Ende");
         }
@@ -157,6 +157,10 @@ public class GUI extends Application {
 
         if (Objects.equals(button.farbe, "B")){
             button.setStyle("-fx-background-color : blue");
+        }
+
+        if (Objects.equals(button.farbe, "0")){
+            button.setStyle("");
         }
     }
 

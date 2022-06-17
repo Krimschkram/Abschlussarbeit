@@ -38,13 +38,24 @@ public class ClientHandler extends Thread {
                     TCPServer3.ausgabe(spielfeld);
 
                     for (int i = 0; i < TCPServer3.clientHandlers.size(); i++) {
+                        TCPServer3.clientHandlers.get(i).spielfeld = spielfeld;
                         TCPServer3.clientHandlers.get(i).write(spielfeld);
+                    }
+
+                    if (index == 0) {
+                        TCPServer3.clientHandlers.get(index).write("disable");
+                        TCPServer3.clientHandlers.get(index+1).write("enable");
+                    } else {
+                        TCPServer3.clientHandlers.get(index).write("disable");
+                        TCPServer3.clientHandlers.get(index-1).write("enable");
                     }
 
                 }
                 if (line.equals("Ende")) {
                     reset();
+                    TCPServer3.ausgabe("Moin");
                     for (int i = 0; i < TCPServer3.clientHandlers.size(); i++) {
+                        TCPServer3.clientHandlers.get(i).spielfeld = spielfeld;
                         TCPServer3.clientHandlers.get(i).write(spielfeld);
                     }
                 }
@@ -57,6 +68,10 @@ public class ClientHandler extends Thread {
 
     public void reset() {
         spielfeld =  "0000000;0000000;0000000;0000000;0000000;0000000";
+        for (int i = 0; i < TCPServer3.clientHandlers.size(); i++) {
+            TCPServer3.clientHandlers.get(i).spielfeld = spielfeld;
+            TCPServer3.clientHandlers.get(i).write(spielfeld);
+        }
     }
 
     public void write(String line) {
@@ -82,6 +97,7 @@ public class ClientHandler extends Thread {
     public String aendereSpielfeld(int col) {   // wie der Methodenname: nach einem Spielzug muss die Variable Spielfeld geändert werden, diese Methode bezweckt das...
         String[] ar = spielfeld.split(";");
         int row = nextBest(col);
+        TCPServer3.ausgabe(row+"");
         String newSpielfeld = "";
 
         for (int i = 0; i < 6; i++) {
@@ -111,7 +127,7 @@ public class ClientHandler extends Thread {
                 }
 
             }
-            TCPServer3.ausgabe(row+"");
+         //   TCPServer3.ausgabe(row+"");
             if (row != 5 ) {
                 newSpielfeld += ";";
             }

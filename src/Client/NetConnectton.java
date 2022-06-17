@@ -32,11 +32,16 @@ public class NetConnectton extends Thread {
 
                 if (line.equals("disable")) {
                     gui.disableTopButtons();
+
                 }
                 if (line.equals("enable")) {
                     gui.enableTopButtons();
+
+
                 }
-                gui.spielfeldAuslesen(line);
+                if (!line.equals("enable") && !line.equals("disable")) {
+                    gui.spielfeldAuslesen(line);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
