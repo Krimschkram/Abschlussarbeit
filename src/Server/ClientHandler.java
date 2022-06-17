@@ -13,7 +13,7 @@ public class ClientHandler extends Thread {
     BufferedWriter wr;
     String uname;
     boolean turn = false;
-    static String spielfeld = "0000000;0000000;0000000;0000000;0000000;0000000";
+    public String spielfeld = "0000000;0000000;0000000;0000000;0000000;0000000";
     public int index;
 
     public ClientHandler(Socket s, int index) throws IOException {
@@ -84,11 +84,13 @@ public class ClientHandler extends Thread {
         int row = nextBest(col);
         String newSpielfeld = "";
 
-        for (int i = 0; i < ar.length; i++) {
+        for (int i = 0; i < 6; i++) {
 
             if (i != row) {
                 newSpielfeld += ar[i];
-                newSpielfeld += ";";
+                if (i != 5) {
+                    newSpielfeld += ";";
+                }
                 continue;
             }
 
@@ -109,7 +111,8 @@ public class ClientHandler extends Thread {
                 }
 
             }
-            if (row != 5) {
+            TCPServer3.ausgabe(row+"");
+            if (row != 5 ) {
                 newSpielfeld += ";";
             }
         }
