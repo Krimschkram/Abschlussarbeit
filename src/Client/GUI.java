@@ -47,6 +47,9 @@ public class GUI extends Application {
         TextField port = new TextField();
         Button submit = new Button("submit");
 
+        ip.setText("127.0.0.1");
+        port.setText("22333");
+
         // Ansteuerbare Buttons mittels ArrayList
 
         for (int i = 0; i < 7; i++) {
@@ -158,6 +161,10 @@ public class GUI extends Application {
 
         if (Objects.equals(button.farbe, "B")) {
             button.setStyle("-fx-background-color : blue");
+        }
+
+        if (Objects.equals(button.farbe, "0")){
+            button.setStyle("");
         }
     }
 

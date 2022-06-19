@@ -32,7 +32,7 @@ public class TCPServer3 {
                     clientHandlers.add(new ClientHandler(client, clientHandlers.size()));
                     System.out.println(clientHandlers.get(0).index);
                     clientHandlers.get(clientHandlers.size() - 1).start();
-                    // clientHandlers.get(clientHandlers.size() - 1).write("disable");
+                    clientHandlers.get(clientHandlers.size() - 1).write("disable");
 
                 } else {
                     client.getOutputStream().write("Spiel voll\r\n\r\n".getBytes(StandardCharsets.UTF_8));
@@ -42,7 +42,8 @@ public class TCPServer3 {
                 System.out.println(clientHandlers.size());
 
                 if (clientHandlers.size() == 2) {
-                    // start game
+                    System.out.println("ENABLEAFASFASFCA");
+                    clientHandlers.get(0).write("enable");
                 }
 
 
