@@ -29,7 +29,9 @@ public class NetConnectton extends Thread {
             while (true) {
                 String line = br.readLine();
 
-
+                if (line.length() == 1) {
+                    gui.allesEinfaerben(line);
+                }
                 if (line.equals("disable")) {
                     gui.disableTopButtons();
 
@@ -39,7 +41,7 @@ public class NetConnectton extends Thread {
 
 
                 }
-                if (!line.equals("enable") && !line.equals("disable")) {
+                if (!line.equals("enable") && !line.equals("disable") & line.length() != 1) {
                     gui.spielfeldAuslesen(line);
                 }
             }

@@ -51,13 +51,20 @@ public class ClientHandler extends Thread {
                     }
 
                 }
-                if (line.equals("Ende")) {
+                if (line.startsWith("Ende")) {
+                    for (int i = 0; i < TCPServer3.clientHandlers.size(); i++) {
+                        TCPServer3.clientHandlers.get(i).write(line.split(" ")[1]);
+                        TCPServer3.clientHandlers.get(i).write("disable");
+                    }
+                    /*
                     reset();
                     TCPServer3.ausgabe("Moin");
                     for (int i = 0; i < TCPServer3.clientHandlers.size(); i++) {
                         TCPServer3.clientHandlers.get(i).spielfeld = spielfeld;
                         TCPServer3.clientHandlers.get(i).write(spielfeld);
                     }
+
+                     */
                 }
 
             } catch (IOException e) {
@@ -97,6 +104,10 @@ public class ClientHandler extends Thread {
     public String aendereSpielfeld(int col) {   // wie der Methodenname: nach einem Spielzug muss die Variable Spielfeld geändert werden, diese Methode bezweckt das...
         String[] ar = spielfeld.split(";");
         int row = nextBest(col);
+
+        if (row == -1) {
+
+        }
         TCPServer3.ausgabe(row+"");
         String newSpielfeld = "";
 

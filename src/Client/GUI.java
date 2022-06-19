@@ -147,10 +147,11 @@ public class GUI extends Application {
             borderPane.setCenter(gridPane);
         });
 
+        Character gewinner = hatGewonnen(SpielfeldString);
+        if (gewinner != '0') {
+            netCon.write("Ende "+gewinner);
+            System.out.println("Gewinner:"+gewinner);
 
-        if (hatGewonnen(SpielfeldString) != '0') {
-
-            netCon.write("Ende");
         }
     }
 
@@ -168,7 +169,7 @@ public class GUI extends Application {
         }
     }
 
-    public static void allesEinfaerben(String color) {
+    public void allesEinfaerben(String color) {
 
         for (int i = 0; i < spielfeld.size(); i++) {
 
