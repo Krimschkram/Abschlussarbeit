@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -49,8 +50,8 @@ public class GUI extends Application {
         // Ansteuerbare Buttons mittels ArrayList
 
         for (int i = 0; i < 7; i++) {
-            topButtons.add(new NeuerButton(0,i,true,true));
-            topButtons.get(i).setPrefSize(groesseperbutton-10, groesseperbutton-10);
+            topButtons.add(new NeuerButton(0, i, true, true));
+            topButtons.get(i).setPrefSize(groesseperbutton - 10, groesseperbutton - 10);
             System.out.println("Top Button Number: " + i + ", Row: " + topButtons.get(i).row + ",  Col: " + topButtons.get(i).col);
         }
 
@@ -59,29 +60,28 @@ public class GUI extends Application {
         HBox h3 = new HBox();
         Pane spacer = new Pane();               // ist zum Zentrieren der Elemente in h1 da
         Pane spacer2 = new Pane();              // ist zum Zentrieren der Elemente in h1 da
-        HBox.setHgrow(spacer,Priority.ALWAYS);  // ist zum Zentrieren der Elemente in h1 da
-        HBox.setHgrow(spacer2,Priority.ALWAYS); // ist zum Zentrieren der Elemente in h1 da
-
+        HBox.setHgrow(spacer, Priority.ALWAYS);  // ist zum Zentrieren der Elemente in h1 da
+        HBox.setHgrow(spacer2, Priority.ALWAYS); // ist zum Zentrieren der Elemente in h1 da
 
 
         // Spielfeld Buttons mittels Arraylist
 
 
         for (int i = 0; i < 42; i++) {
-            spielfeld.add(new NeuerButton((i)/7,(i)%7,false,false));
-            spielfeld.get(i).setPrefSize(groesseperbutton-10, groesseperbutton-10);
+            spielfeld.add(new NeuerButton((i) / 7, (i) % 7, false, false));
+            spielfeld.get(i).setPrefSize(groesseperbutton - 10, groesseperbutton - 10);
             spielfeld.get(i).setDisable(!(spielfeld.get(i).enabled));
             System.out.println("Button Number: " + i + ", Row: " + spielfeld.get(i).row + ",  Col: " + spielfeld.get(i).col);
 
-            gridPane.add(spielfeld.get(i),spielfeld.get(i).col,spielfeld.get(i).row);
+            gridPane.add(spielfeld.get(i), spielfeld.get(i).col, spielfeld.get(i).row);
         }
 
         h1.getChildren().addAll(spacer, ip, port, submit, spacer2);
         h2.getChildren().addAll(topButtons);
-        h2.setSpacing((sceneSizeX-sceneSizeY)/5);
-        v.getChildren().addAll(h1,h2,h3);
+        h2.setSpacing((sceneSizeX - sceneSizeY) / 5);
+        v.getChildren().addAll(h1, h2, h3);
         v.setSpacing(10);
-        gridPane.setHgap((sceneSizeX-sceneSizeY)/5);
+        gridPane.setHgap((sceneSizeX - sceneSizeY) / 5);
         gridPane.setVgap(10);
         borderPane.setTop(v);
         borderPane.setCenter(gridPane);
@@ -118,6 +118,7 @@ public class GUI extends Application {
             netCon.write("click 6");
         });
     }
+
     public void Ausgabe(String s) {
         System.out.println(s);
     }
@@ -126,68 +127,81 @@ public class GUI extends Application {
         System.out.println(SpielfeldString);
         GridPane neuesGridPane = new GridPane();
 
-        SpielfeldString = SpielfeldString.replaceAll(";","");
+        SpielfeldString = SpielfeldString.replaceAll(";", "");
 
         final String finalString = SpielfeldString;
         Platform.runLater(() -> {
-        for (int i = 0; i < finalString.length(); i++) {
+            for (int i = 0; i < finalString.length(); i++) {
 
-            spielfeld.get(i).farbe = finalString.charAt(i) + "";
-            einfaerben(spielfeld.get(i));
-            neuesGridPane.add(spielfeld.get(i),spielfeld.get(i).col,spielfeld.get(i).row);
-        }
+                spielfeld.get(i).farbe = finalString.charAt(i) + "";
+                einfaerben(spielfeld.get(i));
+                neuesGridPane.add(spielfeld.get(i), spielfeld.get(i).col, spielfeld.get(i).row);
+            }
 
             gridPane = neuesGridPane;
-            gridPane.setHgap((sceneSizeX-sceneSizeY)/5);
+            gridPane.setHgap((sceneSizeX - sceneSizeY) / 5);
             gridPane.setVgap(10);
             borderPane.setCenter(gridPane);
         });
 
 
-        if (hatGewonnen(SpielfeldString) == 'R') {
+        if (hatGewonnen(SpielfeldString) != '0') {
 
             netCon.write("Ende");
         }
     }
 
-    public static void einfaerben(NeuerButton button){
-        if (Objects.equals(button.farbe, "R")){
+    public static void einfaerben(NeuerButton button) {
+        if (Objects.equals(button.farbe, "R")) {
             button.setStyle("-fx-background-color : red");
         }
 
-        if (Objects.equals(button.farbe, "B")){
+        if (Objects.equals(button.farbe, "B")) {
             button.setStyle("-fx-background-color : blue");
         }
     }
 
-    public static void disableTopButtons(){
+    public static void allesEinfaerben(String color) {
+
+        for (int i = 0; i < spielfeld.size(); i++) {
+
+            if (color.equals("B")) {
+                spielfeld.get(i).setStyle("-fx-background-color : blue");
+            }
+            if (color.equals("R")) {
+                spielfeld.get(i).setStyle("-fx-background-color : red");
+            }
+        }
+    }
+
+    public static void disableTopButtons() {
         for (int i = 0; i < topButtons.size(); i++) {
             topButtons.get(i).setDisable(true);
-            topButtons.get(i).setPrefSize(groesseperbutton-10, groesseperbutton-10);
+            topButtons.get(i).setPrefSize(groesseperbutton - 10, groesseperbutton - 10);
         }
     }
 
-    public static void enableTopButtons(){
+    public static void enableTopButtons() {
         for (int i = 0; i < topButtons.size(); i++) {
             topButtons.get(i).setDisable(false);
-            topButtons.get(i).setPrefSize(groesseperbutton-10, groesseperbutton-10);
+            topButtons.get(i).setPrefSize(groesseperbutton - 10, groesseperbutton - 10);
         }
     }
 
-    public static char hatGewonnen(String Spielfeld){
+    public static char hatGewonnen(String Spielfeld) {
 
         // char = 0, niemand hat gewonnen | char = R, rot hat gewonnen | char = B, blau hat gewonnen
 
         int y = 0;
         int x = 0;
 
-        Spielfeld = Spielfeld.replaceAll(";","");
-        char [][] temp = new char[6][7];
+        Spielfeld = Spielfeld.replaceAll(";", "");
+        char[][] temp = new char[6][7];
 
         for (int i = 0; i < Spielfeld.length(); i++) {
-            if (x == 7){
+            if (x == 7) {
                 y++;
-                x=0;
+                x = 0;
             }
             temp[y][x] = Spielfeld.charAt(i);
             x++;
