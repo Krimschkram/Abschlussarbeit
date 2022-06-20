@@ -33,8 +33,8 @@ public class GUI extends Application {
     public static BorderPane borderPane = new BorderPane();
     public static HBox h2 = new HBox();
     public static GridPane gridPane = new GridPane();
-    public static String myUsername = "User1";
-    public static String enemyUsername = "User2";
+    public static String redUsername = "User1";
+    public static String blueUsername = "User2";
     public static Button neuesSpiel = new Button("Neues Spiel");
 
     public static void main(String[] args) {
