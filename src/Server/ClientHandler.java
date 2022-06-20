@@ -31,6 +31,14 @@ public class ClientHandler extends Thread {
 
                 // Hier nachricht auswerte
 
+                if (line.equals("reset")) {
+                    reset();
+                    for (int i = 0; i < TCPServer3.clientHandlers.size(); i++) {
+                        TCPServer3.clientHandlers.get(i).spielfeld = spielfeld;
+                        TCPServer3.clientHandlers.get(i).write(spielfeld);
+                    }
+                }
+
                 if (line.startsWith("click")) {
                     int col = Integer.parseInt(line.split(" ")[1]);
                     int place = nextBest(col);
@@ -51,6 +59,7 @@ public class ClientHandler extends Thread {
                     }
 
                 }
+
                 if (line.startsWith("Ende")) {
                     for (int i = 0; i < TCPServer3.clientHandlers.size(); i++) {
                         TCPServer3.clientHandlers.get(i).write(line.split(" ")[1]);

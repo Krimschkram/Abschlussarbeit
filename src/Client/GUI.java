@@ -152,6 +152,9 @@ public class GUI extends Application {
         topButtons.get(6).setOnAction(f -> {
             netCon.write("click 6");
         });
+        neuesSpiel.setOnAction(f ->  {
+            netCon.write("reset");
+        });
     }
 
     public void Ausgabe(String s) {
