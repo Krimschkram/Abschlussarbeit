@@ -33,10 +33,12 @@ public class ClientHandler extends Thread {
 
                 if (line.equals("reset")) {
                     reset();
+
                     for (int i = 0; i < TCPServer3.clientHandlers.size(); i++) {
-                        TCPServer3.clientHandlers.get(i).spielfeld = spielfeld;
-                        TCPServer3.clientHandlers.get(i).write(spielfeld);
+                        TCPServer3.clientHandlers.get(i).write("0");
                     }
+                    write("enable");
+
                 }
 
                 if (line.startsWith("click")) {
