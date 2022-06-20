@@ -176,6 +176,7 @@ public class GUI extends Application {
             gridPane = neuesGridPane;
             gridPane.setHgap((sceneSizeX - sceneSizeY) / 5);
             gridPane.setVgap(10);
+            gridPane.setAlignment(Pos.CENTER);
             borderPane.setCenter(gridPane);
         });
 
